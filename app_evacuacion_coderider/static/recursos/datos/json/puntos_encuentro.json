@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Parque Caldas",
+    "descripcion": "Punto de encuentro centro - Plaza principal de Popayán.",
+    "lat": 2.4419,
+    "lng": -76.6063
+  },
+  {
+    "id": 2,
+    "nombre": "Parque Campanario / Norte",
+    "descripcion": "Punto de encuentro norte - Zona verde junto a Campanario.",
+    "lat": 2.4632,
+    "lng": -76.5898
+  }
+]

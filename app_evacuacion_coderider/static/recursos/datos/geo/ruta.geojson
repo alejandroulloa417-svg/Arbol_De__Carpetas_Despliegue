@@ -1,0 +1,75 @@
+{
+  "type": "FeatureCollection",
+  "name": "ruta_evacuacion_ejemplo",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "tipo": "inicio",
+        "nombre": "Inicio de evacuación"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-76.6147, 2.4419]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tipo": "ruta",
+        "nombre": "Ruta de evacuación"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-76.6147, 2.4419],
+          [-76.6143, 2.4422],
+          [-76.6139, 2.4426],
+          [-76.6135, 2.4430],
+          [-76.6131, 2.4434]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tipo": "salida",
+        "nombre": "Salida de emergencia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-76.6131, 2.4434]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tipo": "encuentro",
+        "nombre": "Punto de encuentro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-76.6125, 2.4440]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tipo": "peligro",
+        "nombre": "Zona de peligro"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-76.6150, 2.4424],
+            [-76.6146, 2.4424],
+            [-76.6146, 2.4428],
+            [-76.6150, 2.4428],
+            [-76.6150, 2.4424]
+          ]
+        ]
+      }
+    }
+  ]
+}

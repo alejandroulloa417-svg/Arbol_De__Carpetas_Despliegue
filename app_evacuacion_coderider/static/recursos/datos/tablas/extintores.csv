@@ -1,0 +1,5 @@
+id,nombre,tipo,ubicacion,latitud,longitud,estado
+1,Extintor 1,ABC,Entrada principal,2.4419,-76.6147,Activo
+2,Extintor 2,CO2,Oficina,2.4422,-76.6143,Activo
+3,Extintor 3,ABC,Pasillo,2.4426,-76.6139,Activo
+4,Extintor 4,CO2,Salida de emergencia,2.4434,-76.6131,Activo

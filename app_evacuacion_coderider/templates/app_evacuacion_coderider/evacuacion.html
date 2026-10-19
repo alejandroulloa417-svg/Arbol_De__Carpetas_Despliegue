@@ -1,0 +1,304 @@
+{% load static %}
+
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Evacuación CodeRider</title>
+
+    <link
+        rel="icon"
+        href="{% static 'recursos/imagenes/sistemas/favicon.ico' %}"
+    >
+
+    <link
+        rel="manifest"
+        href="{% static 'recursos/pwa/manifest.json' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'recursos/estilos/estilo.css' %}"
+    >
+
+    <!-- 1. Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- 2. Leaflet Routing Machine CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"
+    >
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-contenedor">
+        <a
+            href="{% url 'evacuacion' %}"
+            class="nav-logo"
+        >
+            CodeRider
+        </a>
+
+        <ul class="nav-menu">
+            <li>
+                <a
+                    href="{% url 'evacuacion' %}"
+                    class="nav-enlace activo"
+                >
+                    📍 Generalidades CodeRider
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="{% url 'evacuacion' %}"
+                    class="nav-enlace"
+                >
+                    🏠 Panel CodeRider
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<header>
+    <h1>Evacuacion</h1>
+</header>
+
+<main>
+
+    <!-- IMÁGENES -->
+    <section class="tarjeta">
+        <h2>🖼️ Imágenes</h2>
+
+        <img
+            src="{% static 'recursos/imagenes/fotos/plano.png' %}"
+            width="250"
+            alt="Atardecer"
+        >
+
+        <img
+            src="{% static 'recursos/imagenes/iconos/facebook.svg' %}"
+            width="60"
+            alt="Salida de emergencia"
+        >
+    </section>
+
+    <!-- VIDEO -->
+    <section class="tarjeta">
+        <h2>🎬 Video CodeRider</h2>
+
+        <video width="100%" controls>
+            <source
+                src="{% static 'recursos/videos/clips/evacuacion.mp4' %}"
+                type="video/mp4"
+            >
+
+            <track
+                src="{% static 'recursos/videos/subtitulos/subtitulos.vtt' %}"
+                kind="subtitles"
+                srclang="es"
+                label="Español"
+            >
+
+            Tu navegador no soporta video.
+        </video>
+    </section>
+
+    <!-- AUDIOS -->
+    <section class="tarjeta">
+        <h2>🔊 Audio CodeRider 1</h2>
+        <audio controls>
+            <source
+                src="{% static 'recursos/audios/alertas/El Luchador.mp3' %}"
+                type="audio/mpeg"
+            >
+            Tu navegador no soporta audio.
+        </audio>
+
+        <h2>🔊 Audio CodeRider 2</h2>
+        <audio controls>
+            <source
+                src="{% static 'recursos/audios/alertas/ALTAS Y BAJAS.mp3' %}"
+                type="audio/mpeg"
+            >
+            Tu navegador no soporta audio.
+        </audio>
+
+        <h2>🔊 Audio CodeRider 3</h2>
+        <audio controls>
+            <source
+                src="{% static 'recursos/audios/alertas/Hagalo.mp3' %}"
+                type="audio/mpeg"
+            >
+            Tu navegador no soporta audio.
+        </audio>
+    </section>
+
+    <!-- DOCUMENTOS -->
+    <section class="tarjeta">
+        <h2>📁 Documentos y datos CodeRider</h2>
+
+        <a
+            href="{% static 'recursos/documentos/pdf/plan_evacuacion.pdf' %}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            📄 PDF CodeRider
+        </a>
+
+        <a
+            href="{% static 'recursos/documentos/comprimidos/kit_emergencia.zip' %}"
+            download
+        >
+            📦 ZIP CodeRider
+        </a>
+
+        <a
+            href="{% static 'recursos/datos/tablas/extintores.csv' %}"
+            download
+        >
+            📊 CSV CodeRider
+        </a>
+
+        <a
+            href="{% static 'recursos/datos/gps/ruta_evacuacion.gpx' %}"
+            download
+        >
+            📍 GPS CodeRider
+        </a>
+    </section>
+
+    <!-- SUBIR ARCHIVOS -->
+    <section class="tarjeta">
+        <h2>📷 Subir archivos CodeRider</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">
+                Enviar reporte
+            </button>
+        </form>
+    </section>
+
+    <!-- REPORTES -->
+    <section class="tarjeta">
+        <h2>📂 Reportes recibidos CodeRider</h2>
+
+        {% for r in reportes %}
+            <div class="reporte">
+                {% if r.foto %}
+                    <img
+                        src="{{ r.foto.url }}"
+                        width="150"
+                        alt="Foto del reporte"
+                    >
+                {% endif %}
+
+                <p>
+                    <strong>{{ r.nombre }}</strong>:
+                    {{ r.descripcion }}
+                </p>
+
+                <p>
+                    📅 {{ r.fecha|date:"d/m/Y H:i" }}
+                </p>
+
+                {% if r.documento %}
+                    <a
+                        href="{{ r.documento.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Ver documento
+                    </a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Aún no hay reportes.</p>
+        {% endfor %}
+    </section>
+
+    <!-- MAPA Y RUTAS -->
+    <section class="tarjeta">
+        <h2>🗺️ Mapa de ruta + geolocalizacion CodeRider</h2>
+
+        <div class="botonera">
+            <button
+                id="btn-ruta"
+                class="btn-mapa btn-verde"
+            >
+                🔴 Ruta Predeterminada
+            </button>
+
+            <button
+                id="btn-modo-manual"
+                class="btn-mapa btn-azul"
+            >
+                ✏️ Activar trazado manual
+            </button>
+
+            <button
+                id="btn-limpiar-rutas"
+                class="btn-mapa btn-rojo"
+            >
+                🗑️ Limpiar rutas
+            </button>
+        </div>
+
+        <div id="mapa"></div>
+    </section>
+
+    <!-- PUNTOS EN MAPA -->
+    <section class="tarjeta">
+        <h2>📍 Puntos en mapa CodeRider</h2>
+
+        <p id="info-institucion"></p>
+
+        <div class="botonera">
+            <button
+                id="btn-puntos"
+                class="btn-mapa btn-azul"
+            >
+                ⚫ Mostrar puntos de encuentro CodeRider
+            </button>
+        </div>
+
+        <div
+            id="lista-puntos"
+            class="lista-puntos"
+        ></div>
+    </section>
+
+</main>
+
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    const URL_CSV = "{% static 'recursos/datos/tablas/extintores.csv' %}";
+    const URL_GEO = "{% static 'recursos/geo/ruta.geojson' %}";
+    const URL_JSON = "{% static 'recursos/datos/json/puntos_encuentro.json' %}";
+    const URL_API_SISMOS = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson";
+</script>
+
+<!-- 1. Leaflet JS Principal -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- 2. Leaflet Routing Machine JS -->
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+<!-- 3. Scripts del proyecto -->
+<script src="{% static 'recursos/scripts/mapa.js' %}" defer></script>
+<script src="{% static 'recursos/scripts/tabla_csv.js' %}" defer></script>
+<script src="{% static 'recursos/scripts/punto_encuentro.js' %}" defer></script>
+<script src="{% static 'recursos/scripts/sismos_api.js' %}" defer></script>
+
+</body>
+</html>
